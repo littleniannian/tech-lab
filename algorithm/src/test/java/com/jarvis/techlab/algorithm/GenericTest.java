@@ -1,5 +1,7 @@
 package com.jarvis.techlab.algorithm;
 
+import com.jarvis.techlab.algorithm.leetcode.Solution917;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -60,5 +62,27 @@ public class GenericTest {
         //[0 1 1 2 3 5 8 13 ......]
         int res = fibonacciHandler(5);
         System.out.println(res);
+    }
+
+    @Test
+    public void charTest(){
+        char a = 'a';
+        char z = 'z';
+        char A = 'A';
+        char Z = 'Z';
+        char w = 91;
+        System.out.println(a-0);
+        System.out.println(z-0);
+        System.out.println(A-0);
+        System.out.println(Z-0);
+        System.out.println(w);
+    }
+
+    @Test
+    public void solution917Test(){
+        Solution917 solution917 = new Solution917();
+        String origin = "a-bC-dEf-ghIj";
+        String res = solution917.reverseOnlyLetters(origin);
+        Assertions.assertEquals("j-Ih-gfE-dCba",res,"error");
     }
 }
