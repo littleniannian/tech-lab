@@ -1,4 +1,4 @@
-package com.jarvis.techlab.algorithm.pattern;
+package com.jarvis.techlab.algorithm.pattern.create;
 
 /**
  * @ClassName Singleton.java
