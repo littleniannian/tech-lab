@@ -6,7 +6,7 @@
         <groupId>com.jarvis</groupId>
         <artifactId>tech-lab</artifactId>
         <version>1.0.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.jarvis.techlab</groupId>
     <artifactId>redis</artifactId>
