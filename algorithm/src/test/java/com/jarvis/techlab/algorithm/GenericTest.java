@@ -1,8 +1,11 @@
 package com.jarvis.techlab.algorithm;
 
+import com.jarvis.techlab.algorithm.leetcode.Solution1;
 import com.jarvis.techlab.algorithm.leetcode.Solution917;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
 
 /**
  * @ClassName GenericTest.java
@@ -84,5 +87,14 @@ public class GenericTest {
         String origin = "a-bC-dEf-ghIj";
         String res = solution917.reverseOnlyLetters(origin);
         Assertions.assertEquals("j-Ih-gfE-dCba",res,"error");
+    }
+
+    @Test
+    public void solution1Test(){
+        Solution1 solution1 = new Solution1();
+        int[] nums = new int[]{2,7,11,15};
+        int target = 9;
+        int[] res = solution1.twoSum(nums,target);
+        System.out.println(Arrays.toString(res));
     }
 }
