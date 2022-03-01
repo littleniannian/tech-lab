@@ -97,4 +97,26 @@ public class GenericTest {
         int[] res = solution1.twoSum(nums,target);
         System.out.println(Arrays.toString(res));
     }
+
+    @Test
+    // 挑选出某数所有的位上的1的下标
+    public void andTest(){
+        // 0111
+        // 右移0位 0111
+        // 右移1位 011
+        // 右移2位 01
+        int i = 7;
+        for (int j = 0; j < 5; j++) {
+            int res = (i>>j);
+            System.out.println("val: "+res);
+            int idx = res&1;
+            System.out.println("flag:"+idx);
+        }
+    }
+
+    @Test
+    public void byteCountTest(){
+        int count = Integer.bitCount(7);
+        System.out.println(count);
+    }
 }
