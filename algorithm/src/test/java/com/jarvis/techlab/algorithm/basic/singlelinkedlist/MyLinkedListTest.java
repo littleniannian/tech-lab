@@ -13,9 +13,8 @@ class MyLinkedListTest {
     public void traverseTest(){
         MyLinkedList myLinkedList = new MyLinkedList();
         Node head = new Node(-1,null);
-        for (int i = 0; i <10 ; i++) {
-            myLinkedList.addNode(head,new Node(i,null));
-        }
+        myLinkedList.addNode(head,new Node(1,null));
+        myLinkedList.addNode(head,new Node(2,null));
         myLinkedList.traverse(head);
     }
 }
