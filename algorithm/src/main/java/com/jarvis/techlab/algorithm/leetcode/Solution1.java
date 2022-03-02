@@ -8,6 +8,7 @@ import java.util.Map;
  * @Author jarvis.yuen
  * @Version 1.0.0
  * @CreateTime 2022-02-24 01:02:00
+ * @description 两数之和
  */
 public class Solution1 {
     public int[] twoSum(int[] nums, int target) {

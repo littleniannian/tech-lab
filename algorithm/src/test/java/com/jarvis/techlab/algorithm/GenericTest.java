@@ -89,6 +89,7 @@ public class GenericTest {
         Assertions.assertEquals("j-Ih-gfE-dCba",res,"error");
     }
 
+
     @Test
     public void solution1Test(){
         Solution1 solution1 = new Solution1();
