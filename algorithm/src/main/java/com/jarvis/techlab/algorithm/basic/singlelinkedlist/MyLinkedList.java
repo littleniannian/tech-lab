@@ -2,8 +2,6 @@ package com.jarvis.techlab.algorithm.basic.singlelinkedlist;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Objects;
-
 /**
  * @author jarvis.yuen
  * @version 1.0.0
@@ -38,7 +36,7 @@ public class MyLinkedList {
         int j = 0;
         while (temp!=null&&j<num){
             j++;
-            temp = node.next;
+            temp = temp.next;
         }
         if(j==num){
             return temp;
@@ -66,10 +64,10 @@ public class MyLinkedList {
      * @param newNode
      */
     public void addNode(Node head,Node newNode){
-        Node temp = head;
-        if(temp==null){
+        if(head==null){
             head = newNode;
         }
+        Node temp = head;
         while (temp!=null){
             if(temp.next==null){
                 break;
@@ -78,7 +76,6 @@ public class MyLinkedList {
             }
         }
         temp.next = newNode;
-        head = temp;
     }
 
     /**
@@ -86,12 +83,27 @@ public class MyLinkedList {
      * @param head
      */
     public void traverse(Node head){
-        System.out.print(head.val+", ");
-        while (head!=null){
-            head = head.next;
-            if(head!=null){
-                System.out.print(head.val+", ");
+        Node temp = head;
+        System.out.print(temp.val+", ");
+        while (temp!=null){
+            temp = temp.next;
+            if(temp!=null){
+                System.out.print(temp.val+", ");
             }
         }
+    }
+
+    public void delete(Node head,int val){
+        Node temp = head;
+        while (temp!=null && temp.val!=val){
+            temp = temp.next;
+        }
+        if(temp.next.val==val){
+            // 删除当前节点
+        }
+    }
+
+    public void update(Node head,int val){
+        head.val = val;
     }
 }
