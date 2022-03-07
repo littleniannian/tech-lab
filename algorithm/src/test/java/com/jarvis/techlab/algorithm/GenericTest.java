@@ -120,4 +120,5 @@ public class GenericTest {
         int count = Integer.bitCount(7);
         System.out.println(count);
     }
+
 }

@@ -10,8 +10,8 @@ import java.util.Objects;
  * @createTime 2022年03月02日 16:39:00
  */
 public class Node {
-    protected int val;
-    protected Node next;
+    public int val;
+    public Node next;
 
     public Node(int val) {
         this.val = val;

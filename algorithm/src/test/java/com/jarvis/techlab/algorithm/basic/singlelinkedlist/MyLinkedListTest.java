@@ -1,5 +1,6 @@
 package com.jarvis.techlab.algorithm.basic.singlelinkedlist;
 
+import com.jarvis.techlab.algorithm.leetcode.Solution2;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -54,6 +55,25 @@ class MyLinkedListTest {
         node(b);
         System.out.println(a);
         System.out.println(b);
+    }
+
+    @Test
+    public void solutionTest(){
+        MyLinkedList myLinkedList = new MyLinkedList();
+        Solution2 solution2 = new Solution2();
+        Node head = new Node(9,null);
+        myLinkedList.addNode(head,new Node(9,null));
+        myLinkedList.addNode(head,new Node(9,null));
+        myLinkedList.addNode(head,new Node(9,null));
+        myLinkedList.addNode(head,new Node(9,null));
+        myLinkedList.addNode(head,new Node(9,null));
+        myLinkedList.addNode(head,new Node(9,null));
+        Node head1 = new Node(9,null);
+        myLinkedList.addNode(head1,new Node(9,null));
+        myLinkedList.addNode(head1,new Node(9,null));
+        myLinkedList.addNode(head1,new Node(9,null));
+        Node resNode = solution2.addTwoNumbers(head,head1);
+        System.out.println(resNode);
     }
 
     private void add(int origin){
