@@ -1,7 +1,12 @@
 package com.jarvis.techlab.algorithm;
 
+import com.jarvis.techlab.algorithm.basic.tree.TreeNode;
 import com.jarvis.techlab.algorithm.leetcode.Solution3;
+import com.jarvis.techlab.algorithm.leetcode.Solution94;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.TestExecutionListeners;
+
+import java.util.List;
 
 /**
  * @author jarvis.yuen
@@ -17,5 +22,13 @@ public class LeetCodeTest {
         String origin = " ";
         int res = solution3.lengthOfLongestSubstring(origin);
         System.out.println(res);
+    }
+
+    @Test
+    public void solution94Test(){
+        Solution94 solution94 = new Solution94();
+        TreeNode root = new TreeNode(1,null,new TreeNode(2,new TreeNode(3),null));
+        List<Integer> res = solution94.inorderTraversal(root);
+
     }
 }
