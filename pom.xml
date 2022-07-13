@@ -29,6 +29,8 @@
         <module>redis</module>
         <module>algorithm</module>
         <module>new-feature</module>
+        <module>design-pattern</module>
+        <module>design-pattern</module>
     </modules>
 
     <dependencyManagement>
