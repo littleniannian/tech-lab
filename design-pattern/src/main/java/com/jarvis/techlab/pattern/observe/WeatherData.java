@@ -11,7 +11,7 @@ public class WeatherData implements Subject {
 
     float pressure;
 
-    private List<Observe> observes;
+    private final List<Observe> observes;
 
     public WeatherData() {
         this.observes = new ArrayList<>();
