@@ -1,3 +1,5 @@
+package simplebeanfactory;
+
 public interface SingletonBeanRegistry {
 
     Object getSingleton(String beanName);

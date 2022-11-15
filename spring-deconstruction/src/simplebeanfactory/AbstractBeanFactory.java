@@ -1,3 +1,5 @@
+package simplebeanfactory;
+
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory{
 
     public Object getBean(String beanName){

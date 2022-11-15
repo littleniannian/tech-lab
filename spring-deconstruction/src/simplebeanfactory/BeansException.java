@@ -1,3 +1,5 @@
+package simplebeanfactory;
+
 public class BeansException extends RuntimeException{
 
     public BeansException(String msg) {
