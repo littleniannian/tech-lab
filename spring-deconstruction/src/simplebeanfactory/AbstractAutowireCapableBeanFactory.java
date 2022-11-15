@@ -13,7 +13,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         Object bean = null;
         try {
             // 这里实例化BEAN，但只实例化了无参的BEAN。存在问题。之后使用CGLIB代理解决问题
-            bean =  beanDefinition.getBeanClass().getDeclaredConstructor((Class<?>) null).newInstance();
+            bean =  beanDefinition.getBeanClass().getConstructor().newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
