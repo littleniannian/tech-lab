@@ -5,4 +5,6 @@ package com.jarvis.springlite;
  */
 public interface BeanFactory {
     Object getBean(String beanName);
+
+    Object getBean(String beanName, Object... args);
 }
