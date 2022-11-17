@@ -1,0 +1,32 @@
+package com.jarvis.springlite.support;
+
+import com.jarvis.springlite.BeanFactory;
+import com.jarvis.springlite.config.BeanDefinition;
+
+/**
+ * 使用模板方法模式，将两个抽象方法的实现延迟加载到子类
+ */
+public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
+
+    /**
+     * 工厂的主要功能就是获取Bean
+     * @param beanName
+     * @return
+     */
+    @Override
+    public Object getBean(String beanName) {
+        Object singleton = getSingleton(beanName);
+        if(null != singleton){
+            return singleton;
+        }
+        BeanDefinition beanDefinition = getBeanDefinition(beanName);
+        return createBean(beanName, beanDefinition);
+    }
+
+    protected abstract BeanDefinition getBeanDefinition(String beanName);
+
+    protected abstract Object createBean(String beanName, BeanDefinition beanDefinition);
+
+
+
+}

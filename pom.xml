@@ -18,7 +18,7 @@
     <description>tech-lab project</description>
 
     <properties>
-        <java.version>18</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -31,6 +31,7 @@
         <module>new-feature</module>
         <module>design-pattern</module>
         <module>design-pattern</module>
+        <module>spring-lite</module>
     </modules>
 
     <dependencyManagement>
