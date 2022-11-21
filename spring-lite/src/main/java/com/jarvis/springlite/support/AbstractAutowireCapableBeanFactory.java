@@ -3,6 +3,7 @@ package com.jarvis.springlite.support;
 import cn.hutool.core.bean.BeanUtil;
 import com.jarvis.springlite.BeansException;
 import com.jarvis.springlite.PropertyValue;
+import com.jarvis.springlite.PropertyValues;
 import com.jarvis.springlite.config.BeanDefinition;
 import com.jarvis.springlite.config.BeanReference;
 
@@ -32,7 +33,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
     private void applyPropertyValues(String beanName, Object bean, BeanDefinition beanDefinition) {
         try {
-            for (PropertyValue propertyValue: beanDefinition.getPropertyValues().getPropertyValues()) {
+            PropertyValues propertyValues = beanDefinition.getPropertyValues();
+            if(propertyValues == null)
+                return;
+            for (PropertyValue propertyValue: propertyValues.getPropertyValues()) {
                 String name = propertyValue.getName();
                 Object value = propertyValue.getValue();
                 // 这里只解决了第一层引用的问题。
