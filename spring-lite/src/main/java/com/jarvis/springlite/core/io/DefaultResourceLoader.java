@@ -14,6 +14,8 @@ public class DefaultResourceLoader implements ResourceLoader {
         Assert.notNull(location, "Location must not be null");
         if (location.startsWith(CLASSPATH_URL_PREFIX)){
             return new ClassPathResource(location.substring(CLASSPATH_URL_PREFIX.length()));
+        }else if(!location.startsWith("https")){
+            return new FileSystemResource(location);
         }else{
             try {
                 URL url = new URL(location);
