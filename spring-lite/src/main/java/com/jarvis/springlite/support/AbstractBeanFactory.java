@@ -1,6 +1,7 @@
 package com.jarvis.springlite.support;
 
 import com.jarvis.springlite.BeanFactory;
+import com.jarvis.springlite.BeansException;
 import com.jarvis.springlite.config.BeanDefinition;
 
 /**
@@ -21,6 +22,11 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
     @Override
     public Object getBean(String beanName, Object... args) {
         return doGetBean(beanName, args);
+    }
+
+    @Override
+    public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
+        return (T) getBean(name);
     }
 
     protected <T> T doGetBean(final String name, final Object[] args) {

@@ -5,6 +5,7 @@
 
     <bean id="userService" class="com.jarvis.bean.UserService">
         <property name="uId" value="10001"/>
+        <property name="name" value="jarvis"/>
         <property name="userDao" ref="userDao"/>
     </bean>
 

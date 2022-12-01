@@ -31,6 +31,12 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         return bean;
     }
 
+    /**
+     * 给类的成员变量赋值
+     * @param beanName
+     * @param bean
+     * @param beanDefinition
+     */
     private void applyPropertyValues(String beanName, Object bean, BeanDefinition beanDefinition) {
         try {
             PropertyValues propertyValues = beanDefinition.getPropertyValues();

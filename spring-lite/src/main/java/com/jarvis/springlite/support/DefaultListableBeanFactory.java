@@ -3,7 +3,6 @@ package com.jarvis.springlite.support;
 import com.jarvis.springlite.BeansException;
 import com.jarvis.springlite.ConfigurableListableBeanFactory;
 import com.jarvis.springlite.config.BeanDefinition;
-import com.jarvis.springlite.config.ConfigurableBeanFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,11 +32,6 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
     @Override
     public boolean containsBeanDefinition(String beanName) {
         return beanDefinitionMap.containsKey(beanName);
-    }
-
-    @Override
-    public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
-        return null;
     }
 
     @Override
