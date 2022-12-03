@@ -4,7 +4,9 @@ import cn.hutool.core.bean.BeanUtil;
 import com.jarvis.springlite.BeansException;
 import com.jarvis.springlite.PropertyValue;
 import com.jarvis.springlite.PropertyValues;
+import com.jarvis.springlite.config.AutowireCapableBeanFactory;
 import com.jarvis.springlite.config.BeanDefinition;
+import com.jarvis.springlite.config.BeanPostProcessor;
 import com.jarvis.springlite.config.BeanReference;
 
 import java.lang.reflect.Constructor;
@@ -12,7 +14,7 @@ import java.lang.reflect.Constructor;
 /**
  * 实现根据BeanDefinition创建实例的功能
  */
-public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
+public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory implements AutowireCapableBeanFactory {
 
     // 组合
     private InstantiationStrategy instantiationStrategy = new CglibInstantiationStrategy();
@@ -24,8 +26,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         try {
             bean = createBeanInstance(beanDefinition, beanName, args);
             applyPropertyValues(beanName, bean, beanDefinition);
+            bean = initializeBean(beanName, bean, beanDefinition);
         } catch (Exception e) {
-            throw new BeansException("Instantiation of bean failed",e);
+            throw new BeansException("Instantiation of bean failed", e);
         }
         registerSingleton(beanName, bean);
         return bean;
@@ -33,6 +36,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
     /**
      * 给类的成员变量赋值
+     *
      * @param beanName
      * @param bean
      * @param beanDefinition
@@ -40,20 +44,20 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     private void applyPropertyValues(String beanName, Object bean, BeanDefinition beanDefinition) {
         try {
             PropertyValues propertyValues = beanDefinition.getPropertyValues();
-            if(propertyValues == null)
+            if (propertyValues == null)
                 return;
-            for (PropertyValue propertyValue: propertyValues.getPropertyValues()) {
+            for (PropertyValue propertyValue : propertyValues.getPropertyValues()) {
                 String name = propertyValue.getName();
                 Object value = propertyValue.getValue();
                 // 这里只解决了第一层引用的问题。
-                if(value instanceof BeanReference){
+                if (value instanceof BeanReference) {
                     BeanReference beanReference = (BeanReference) value;
                     value = getBean(beanReference.getBeanName());
                 }
                 BeanUtil.setFieldValue(bean, name, value);
             }
         } catch (Exception e) {
-            throw new BeansException("error setting property values: "+beanName);
+            throw new BeansException("error setting property values: " + beanName);
         }
     }
 
@@ -69,6 +73,40 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             }
         }
         return instantiationStrategy.instantiate(beanDefinition, beanName, constructorToUse, args);
+    }
+
+    private Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) {
+        // 1. 执行BeanPostProcessor Before的前置处理
+        Object wrappedBean = applyBeanPostProcessorBeforeInitialization(bean, beanName);
+        invokeInitMethods(beanName, wrappedBean, beanDefinition);
+        wrappedBean = applyBeanPostProcessorBeforeInitialization(wrappedBean, beanName);
+        return wrappedBean;
+    }
+
+    private void invokeInitMethods(String beanName, Object wrappedBean, BeanDefinition beanDefinition) {
+
+    }
+
+    @Override
+    public Object applyBeanPostProcessorBeforeInitialization(Object existingBean, String beanName) throws BeansException {
+        Object result = existingBean;
+        for (BeanPostProcessor beanPostProcessor : getBeanPostProcessors()) {
+            Object current = beanPostProcessor.postProcessBeforeInitialization(result, beanName);
+            if (null == current) return result;
+            result = current;
+        }
+        return result;
+    }
+
+    @Override
+    public Object applyBeanPostProcessorAfterInitialization(Object existingBean, String beanName) throws BeansException {
+        Object result = existingBean;
+        for (BeanPostProcessor processor : getBeanPostProcessors()) {
+            Object current = processor.postProcessAfterInitialization(result, beanName);
+            if (null == current) return result;
+            result = current;
+        }
+        return result;
     }
 
     public InstantiationStrategy getInstantiationStrategy() {

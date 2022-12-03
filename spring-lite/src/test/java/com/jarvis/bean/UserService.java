@@ -4,6 +4,10 @@ public class UserService {
 
     private String uId;
 
+    private String company;
+
+    private String location;
+
     private String name;
 
     private UserDao userDao;
@@ -31,8 +35,32 @@ public class UserService {
         this.userDao = userDao;
     }
 
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String queryUserInfo() {
-       return userDao.queryUserName(uId);
+       return userDao.queryUserName(uId) + company + location;
     }
 
     public void queryUserInfoDB(){
