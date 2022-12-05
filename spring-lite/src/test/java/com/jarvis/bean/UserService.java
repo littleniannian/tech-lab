@@ -1,6 +1,9 @@
 package com.jarvis.bean;
 
-public class UserService {
+import com.jarvis.springlite.DisposableBean;
+import com.jarvis.springlite.InitializingBean;
+
+public class UserService implements InitializingBean, DisposableBean {
 
     private String uId;
 
@@ -71,4 +74,13 @@ public class UserService {
         System.out.println("查询用户名: " + this.name);
     }
 
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("执行: UserService.destroy");
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("执行: UserService.afterPropertiesSet");
+    }
 }

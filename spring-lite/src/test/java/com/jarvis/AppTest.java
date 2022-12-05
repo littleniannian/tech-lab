@@ -68,9 +68,17 @@ public class AppTest {
     @Test
     void testXml() {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:springPostProcessor.xml");
-
         UserService userService = applicationContext.getBean("userService", UserService.class);
         String result = userService.queryUserInfo();
+        System.out.println("测试结果: "+result);
+    }
+
+    @Test
+    void testXmlInitDestroy() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring.xml");
+        applicationContext.registerShutdownHook();
+        UserService userService = applicationContext.getBean("userService", UserService.class);
+        String result =  userService.queryUserInfo();
         System.out.println("测试结果: "+result);
     }
 
