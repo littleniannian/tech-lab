@@ -4,6 +4,7 @@ import com.jarvis.springlite.BeansException;
 import com.jarvis.springlite.config.BeanDefinition;
 import com.jarvis.springlite.config.BeanPostProcessor;
 import com.jarvis.springlite.config.ConfigurableBeanFactory;
+import org.springframework.util.ClassUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,8 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
 
     private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
+
+    private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
     /**
      * 工厂的主要功能就是获取Bean
@@ -58,5 +61,9 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
     public List<BeanPostProcessor> getBeanPostProcessors() {
         return this.beanPostProcessors;
+    }
+
+    public ClassLoader getBeanClassLoader() {
+        return this.beanClassLoader;
     }
 }

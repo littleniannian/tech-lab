@@ -70,6 +70,8 @@ public class AppTest {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:springPostProcessor.xml");
         UserService userService = applicationContext.getBean("userService", UserService.class);
         String result = userService.queryUserInfo();
+        System.out.println("ApplicationContextAware: "+userService.getApplicationContext());
+        System.out.println("BeanFactoryAware: "+userService.getBeanFactory());
         System.out.println("测试结果: "+result);
     }
 

@@ -2,6 +2,10 @@ package com.jarvis.springlite.support;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
+import com.jarvis.springlite.Aware;
+import com.jarvis.springlite.BeanClassLoaderAware;
+import com.jarvis.springlite.BeanFactoryAware;
+import com.jarvis.springlite.BeanNameAware;
 import com.jarvis.springlite.BeansException;
 import com.jarvis.springlite.DisposableBean;
 import com.jarvis.springlite.InitializingBean;
@@ -11,6 +15,7 @@ import com.jarvis.springlite.config.AutowireCapableBeanFactory;
 import com.jarvis.springlite.config.BeanDefinition;
 import com.jarvis.springlite.config.BeanPostProcessor;
 import com.jarvis.springlite.config.BeanReference;
+import sun.plugin.com.BeanClass;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -41,7 +46,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     protected void registerDisposableBeanIfNecessary(String beanName, Object bean, BeanDefinition beanDefinition) {
-        if(bean instanceof DisposableBean || StrUtil.isNotEmpty(beanDefinition.getDestroyMethodName())) {
+        if (bean instanceof DisposableBean || StrUtil.isNotEmpty(beanDefinition.getDestroyMethodName())) {
             registerDisposableBean(beanName, new DisposableBeanAdaptor(bean, beanName, beanDefinition));
         }
     }
@@ -88,6 +93,19 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     private Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) {
+        // 初始化Bean判断是否被Aware接口标记，之后分别调用对应的方法
+        if (bean instanceof Aware) {
+            if (bean instanceof BeanFactoryAware) {
+                ((BeanFactoryAware) bean).setBeanFactory(this);
+            }
+            if (bean instanceof BeanClassLoaderAware) {
+                ((BeanClassLoaderAware) bean).setBeanClassLoader(getBeanClassLoader());
+            }
+            if (bean instanceof BeanNameAware) {
+                ((BeanNameAware) bean).setBeanName(beanName);
+            }
+        }
+
         // 1. 执行BeanPostProcessor Before的前置处理
         Object wrappedBean = applyBeanPostProcessorBeforeInitialization(bean, beanName);
         try {
@@ -100,14 +118,14 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     private void invokeInitMethods(String beanName, Object bean, BeanDefinition beanDefinition) throws Exception {
-        if(bean instanceof InitializingBean) {
+        if (bean instanceof InitializingBean) {
             ((InitializingBean) bean).afterPropertiesSet();
         }
         String initMethodName = beanDefinition.getInitMethodName();
         // 只用注解配置init-method 避免init-method二次执行
-        if(StrUtil.isNotEmpty(initMethodName) && !(bean instanceof InitializingBean)){
+        if (StrUtil.isNotEmpty(initMethodName) && !(bean instanceof InitializingBean)) {
             Method initMethod = beanDefinition.getBeanClass().getMethod(initMethodName);
-            if(null == initMethod) {
+            if (null == initMethod) {
                 throw new BeansException("Could not find an init method named '" + initMethodName + "' on bean with name '" + beanName + "'");
             }
             initMethod.invoke(bean);
