@@ -15,7 +15,6 @@ import com.jarvis.springlite.config.AutowireCapableBeanFactory;
 import com.jarvis.springlite.config.BeanDefinition;
 import com.jarvis.springlite.config.BeanPostProcessor;
 import com.jarvis.springlite.config.BeanReference;
-import sun.plugin.com.BeanClass;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -41,11 +40,15 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         }
         // 注册实现了 DisposableBean 接口的 Bean对象
         registerDisposableBeanIfNecessary(beanName, bean, beanDefinition);
-        registerSingleton(beanName, bean);
+        if(beanDefinition.isSingleton()){
+            registerSingleton(beanName, bean);
+        }
         return bean;
     }
 
     protected void registerDisposableBeanIfNecessary(String beanName, Object bean, BeanDefinition beanDefinition) {
+        if(!beanDefinition.isSingleton()) return;
+
         if (bean instanceof DisposableBean || StrUtil.isNotEmpty(beanDefinition.getDestroyMethodName())) {
             registerDisposableBean(beanName, new DisposableBeanAdaptor(bean, beanName, beanDefinition));
         }

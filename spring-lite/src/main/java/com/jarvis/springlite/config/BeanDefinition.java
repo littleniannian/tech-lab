@@ -7,6 +7,11 @@ import com.jarvis.springlite.PropertyValues;
  */
 public class BeanDefinition {
 
+    // 便于将xml配置文件中解析到的Bean对象作用范围填充到属性中
+    String SCOPE_SINGLETON = ConfigurableBeanFactory.SCOPE_SINGLETON;
+
+    String SCOPE_PROTOTYPE = ConfigurableBeanFactory.SCOPE_PROTOTYPE;
+
     private Class beanClass;
 
     private PropertyValues propertyValues;
@@ -14,6 +19,12 @@ public class BeanDefinition {
     private String initMethodName;
 
     private String destroyMethodName;
+
+    private String scope = SCOPE_PROTOTYPE;
+
+    private boolean singleton = true;
+
+    private boolean protoType = false;
 
     public BeanDefinition(Class beanClass) {
         this.beanClass = beanClass;
@@ -47,5 +58,29 @@ public class BeanDefinition {
 
     public void setDestroyMethodName(String destroyMethodName) {
         this.destroyMethodName = destroyMethodName;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
+    public boolean isSingleton() {
+        return singleton;
+    }
+
+    public void setSingleton(boolean singleton) {
+        this.singleton = singleton;
+    }
+
+    public boolean isProtoType() {
+        return protoType;
+    }
+
+    public void setProtoType(boolean protoType) {
+        this.protoType = protoType;
     }
 }

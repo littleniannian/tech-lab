@@ -3,14 +3,15 @@
 
     <bean id="userDao" class="com.jarvis.bean.UserDao" init-method="initDataMethod" destroy-method="destroyMethod"/>
 
-    <bean id="userService" class="com.jarvis.bean.UserService">
+    <bean id="userService" class="com.jarvis.bean.UserService" scope="prototype">
         <property name="uId" value="10001"/>
         <property name="company" value="腾讯"/>
         <property name="location" value="深圳"/>
         <property name="name" value="jarvis"/>
-        <property name="userDao" ref="userDao"/>
+        <property name="userDao" ref="proxyUserDao"/>
     </bean>
 
+    <bean id = "proxyUserDao" class="com.jarvis.bean.ProxyBeanFactory"/>
     <bean class="com.jarvis.common.MyBeanPostProcessor"/>
     <bean class="com.jarvis.common.MyBeanFactoryProcessor"/>
 
