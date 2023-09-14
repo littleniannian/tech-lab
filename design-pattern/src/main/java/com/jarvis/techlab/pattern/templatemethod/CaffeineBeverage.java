@@ -8,6 +8,7 @@ public abstract class CaffeineBeverage {
     /**
      * 该方法为模版方法
      * 封装了制作饮料对算法
+     * 由高层组件调用底层(好莱坞原则)
      */
     final void prepareRecipe() {
         boilWater();
